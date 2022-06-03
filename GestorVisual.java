@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -15,8 +17,15 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class GestorVisual extends JFrame
+public class GestorVisual extends JFrame implements ActionListener
 {
+	JTextField texto_id;
+	JTextField texto_nombre;
+	JTextField texto_ciudad;
+	JTextField texto_telefono;
+	JTextField texto_fecha;
+	JLabel label_texto;
+	JComboBox combo;
 	public GestorVisual()
 	{
 		this.setTitle("STUDENT MANAGER");
@@ -80,8 +89,9 @@ public class GestorVisual extends JFrame
 		JPanel panelinterno = new JPanel();
 		panelinterno.setBackground(Color.CYAN);
 		panelinterno.setLayout(new BoxLayout(panelinterno, BoxLayout.Y_AXIS));
-		JTextField texto_id = new JTextField ();
+		texto_id = new JTextField ();
 		JTextField texto_nombre = new JTextField ();
+		texto_nombre.setColumns(25);
 		JTextField texto_ciudad = new JTextField ();
 		JTextField texto_tfno = new JTextField ();
 		JTextField texto_fecha = new JTextField ();
@@ -103,7 +113,7 @@ public class GestorVisual extends JFrame
 		//PANEL ARRIBA 
 		String [] b = {"ASIR","DAW"};
 		JLabel label_curso = new JLabel ("Curso");
-		JComboBox combo = new JComboBox ();
+		combo = new JComboBox ();
 		for (int i=0;i<b.length;i++)
 		{
 			combo.addItem(b[i]);
@@ -115,6 +125,18 @@ public class GestorVisual extends JFrame
 		panelCentro.setBackground(Color.BLUE);
 		//PANEL CENTRO
 		JButton boton_buscar = new JButton ("Buscar");
+		boton_buscar.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				String id_texto = texto_id.getText();
+				GestorEstudiantes G1 = new GestorEstudiantes();
+				Estudiante E1 = G1.buscarEstudiante(id_texto);
+				String nombreestudiante = E1.getNombre();
+				label_texto.setText("Nombre: "+nombreestudiante);
+			}
+			
+		});
 		JButton boton_insertar = new JButton ("Insertar");
 		JButton boton_modificar = new JButton ("Modificar");
 		JButton boton_eliminar = new JButton ("Eliminar");
@@ -127,7 +149,7 @@ public class GestorVisual extends JFrame
 		JPanel panelAbajo = new JPanel();
 		panelAbajo.setBackground(Color.YELLOW);
 		//PANEL ABAJO
-		JLabel label_texto = new JLabel("AAAAAAAAS");
+		label_texto = new JLabel();
 		panelAbajo.add(label_texto);
 		a.add(panelArriba,BorderLayout.NORTH);
 		a.add(panelCentro,BorderLayout.CENTER);
@@ -137,5 +159,10 @@ public class GestorVisual extends JFrame
 	public static void main (String [] args)
 	{
 		GestorVisual G1 = new GestorVisual();
+	}
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 }
