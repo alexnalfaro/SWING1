@@ -2,6 +2,7 @@ package EJERCICIO1;
 
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -79,7 +80,7 @@ public class GestorEstudiantes
 			return E1;
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.err.print("No se ha podido conectar con la BD");
 		}
 		return null;
 	}
